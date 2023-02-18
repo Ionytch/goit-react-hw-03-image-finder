@@ -1,5 +1,20 @@
-export const App = () => {
-  return (
+import { Component } from "react";
+import Searchbar from "./Searchbar/Searchbar";
+// import ImageGalleryItem from "./ImageGalleryItem/ImageGalleryItem";
+import ImageGallery from "./ImageGallery/ImageGallery";
+
+export default class App extends Component  {
+
+  state = {
+  request:''
+}
+
+  handleFormSubmit = request => { 
+    console.log(request);
+    this.setState({ request });
+  }
+  render() {
+     return (
     <div
       style={{
         height: '100vh',
@@ -10,7 +25,10 @@ export const App = () => {
         color: '#010101'
       }}
     >
-      React homework template
+         <Searchbar onSubmit={this.handleFormSubmit} />
+         <ImageGallery Request={ this.state.request} />
     </div>
   );
+  }
+ 
 };
