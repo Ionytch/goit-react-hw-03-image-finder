@@ -1,19 +1,25 @@
 import { Component } from "react";
 
-export default class ImageGalleryItem extends Component{
-    
+// export default class ImageGalleryItem extends Component
 
-
-    render() {
+function ImageGalleryItem ({data})
+{
+       
         return (
         <div>
-        {/* <p>{this.props.Request}</p> */}
-     <li class="gallery-item">
+        
+                {
+                    data.map(item => (
+                       < li class="gallery-item" key={item.id}>
                 
-  <img src="" alt="" />
+                        <img src={item.webformatURL} alt="car" />
                 </li>  
-                </div>
+                
+                    ))
+                }
+            </div> 
         )
-    }
+    
 }
 
+export default ImageGalleryItem

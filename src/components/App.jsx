@@ -2,17 +2,23 @@ import { Component } from "react";
 import Searchbar from "./Searchbar/Searchbar";
 // import ImageGalleryItem from "./ImageGalleryItem/ImageGalleryItem";
 import ImageGallery from "./ImageGallery/ImageGallery";
+import { Vortex } from "react-loader-spinner";
 
 export default class App extends Component  {
 
   state = {
-  request:''
+    request: ''
+     
 }
 
   handleFormSubmit = request => { 
     console.log(request);
     this.setState({ request });
   }
+
+
+
+
   render() {
      return (
     <div
@@ -26,6 +32,7 @@ export default class App extends Component  {
       }}
     >
          <Searchbar onSubmit={this.handleFormSubmit} />
+         
          <ImageGallery Request={ this.state.request} />
     </div>
   );
