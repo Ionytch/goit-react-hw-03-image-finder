@@ -20,6 +20,7 @@ export default class App extends Component  {
 
 
   render() {
+    console.log(this.state.request);
      return (
     <div
       style={{

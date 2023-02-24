@@ -4,7 +4,8 @@ import { Component } from "react";
      state = {
         request:''
      }
-     handleChange = e => {
+     
+   handleChange = e => {
          this.setState({ request: e.currentTarget.value.toLowerCase() });
          
     };

@@ -5,7 +5,7 @@ import { Vortex } from "react-loader-spinner";
 export default class ImageGallery extends Component{
 
     state = {
-        response: [],
+        response: null,
         loading: false,
         errorMessage:''
 }
@@ -23,7 +23,7 @@ export default class ImageGallery extends Component{
             fetch(`https://pixabay.com/api/?q=${this.props.Request}&page=1&key=32152184-2ad461e647b19751df8bc3af5&image_type=photo&orientation=horizontal&per_page=12`)
                 .then(res => res.json())
                 // .then(console.log)
-                .then((hits) => { this.setState({ response: hits, errorMessage: '' }) })
+                .then(({hits}) => { this.setState({ response: hits, errorMessage: '' }) } )
                 .catch((error) => ({ errorMessage: error.message }))
                 .finally(()=>this.setState({loading: false}));
         }
@@ -31,7 +31,9 @@ export default class ImageGallery extends Component{
     
     render() {
         const { response } = this.state;
+        console.log(response);
         return (<>
+            
             {this.state.loading&& <Vortex
   visible={true}
   height="80"
@@ -40,10 +42,15 @@ export default class ImageGallery extends Component{
   wrapperStyle={{}}
   wrapperClass="vortex-wrapper"
   colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
-/>}
-            <ul class="gallery">
-                {/* <ImageGalleryItem  data={response} />  */}
+            />}
+            {!this.props.Request&& <div>Start your search</div>}
+            {
+                this.state.response && 
+                <ul class="gallery">
+                <ImageGalleryItem  data={response} /> 
              </ul> 
+            }
+            
             </>
         )
     }
