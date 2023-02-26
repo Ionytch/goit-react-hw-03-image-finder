@@ -1,11 +1,14 @@
-import * as basicLightbox from 'basiclightbox'
+import * as basicLightbox from 'basiclightbox';
 
-const instance = basicLightbox.create(`
+export default function Modal (largeImageURL,tags) {
+  const instance =
+    basicLightbox.create(`
     <div class="overlay">
   <div class="modal">
-    <img src="" alt="" />
+    <img src=${largeImageURL} alt=${tags} />
   </div>
 </div>
 `)
 
-instance.show()
+  instance.show()
+}
