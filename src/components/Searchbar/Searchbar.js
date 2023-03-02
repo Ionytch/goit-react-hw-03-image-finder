@@ -16,7 +16,7 @@ import { Component } from "react";
             alert("PLease, enter a request");
             return
         }
-        const { onSubmit } = this.props;
+      const { onSubmit } = this.props;
         
         onSubmit(this.state);
         this.reset();

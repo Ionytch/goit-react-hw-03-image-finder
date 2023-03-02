@@ -9,9 +9,10 @@ export default class ImageGallery extends Component{
         response: [],
         page: 1,
         loading: false,
-        errorMessage: ''
-        
-}
+        errorMessage: '',
+        isOpen: false,
+        largeImage: ''      
+        }
 
        
     componentDidUpdate(prevProps, prevState) {
@@ -34,12 +35,9 @@ export default class ImageGallery extends Component{
     }
 
     loadImages = () => {
-        // const arrayHits = prevState.response;
-        // console.log(arrayHits);
-             fetch(`https://pixabay.com/api/?q=${this.props.Request.request}&page=${this.state.page}&key=32152184-2ad461e647b19751df8bc3af5&image_type=photo&orientation=horizontal&per_page=12`)
+                 fetch(`https://pixabay.com/api/?q=${this.props.Request.request}&page=${this.state.page}&key=32152184-2ad461e647b19751df8bc3af5&image_type=photo&orientation=horizontal&per_page=12`)
                 .then(res => res.json())
-                // .then(console.log)
-                 .then(({ hits }) => { this.setState((prevState) => ({ response: [...prevState.response, ...hits], errorMessage: '' })); } )
+                .then(({ hits }) => { this.setState((prevState) => ({ response: [...prevState.response, ...hits], errorMessage: '' })); } )
                 .catch((error) => ({ errorMessage: error.message }))
                 .finally(()=>this.setState({loading: false}));
             
@@ -51,8 +49,32 @@ export default class ImageGallery extends Component{
         }))
     }
 
+handleGalleryItem = fullImageUrl => {
+    this.setState({
+      largeImage: fullImageUrl,
+      isOpen: true,
+    });
+  };
+
+  //   toggleModal = (e) => {
+  //   this.setState(prevState => ({
+  //     isOpen: !prevState.isOpen,
+  //     // largeImage: '',
+  //   }));
+  //     console.log(e.target);
+  // };
+
+
+
+    toggleModal = (e) => {
+        this.setState({ isOpen: !this.state.isOpen });
+        console.log("cliked");
+      console.log(e.target);
+      // console.log(this.state.response.largeImageURL);
+     }
+
     render() {
-        const { response } = this.state;
+        const { response, isOpen, largeImage } = this.state;
         return (<>
             
             {this.state.loading&& <Vortex
@@ -68,8 +90,24 @@ export default class ImageGallery extends Component{
             {
                 this.state.response && 
                 <ul class="gallery">
-                        <ImageGalleryItem data={response} /> 
-                        {this.props.Request&&<button type="button" onClick={this.loadMore}>load more</button>}
+                <ImageGalleryItem data={response} onClick={this.toggleModal} isOpen={isOpen} largeImage={ largeImage} /> 
+                {this.props.Request && <button type="button" onClick={this.loadMore}>load more</button>}
+                {/* {isOpen&&<Modal largeImageURL={response.largeImageURL} />} */}
+
+{/* {this.state.isOpen && (
+          <Modal onClose={this.toggleModal}>
+            <div className="Close-box">
+              <IconButton onClick={this.toggleModal} aria-label="Close modal">
+                <CloseIcon width="20px" height="20px" fill="#7e7b7b" />
+              </IconButton>
+            </div>
+
+            <img src={largeImage} alt="" className="Modal-image" />
+          </Modal>
+        )} */}
+
+
+                        {/* {this.state.isOpen&&<Modal data={response} onClick={ this.handleModal}/>} */}
                         
              </ul> 
             }
