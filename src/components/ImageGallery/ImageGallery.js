@@ -56,27 +56,10 @@ handleGalleryItem = fullImageUrl => {
     });
   };
 
-  //   toggleModal = (e) => {
-  //   this.setState(prevState => ({
-  //     isOpen: !prevState.isOpen,
-  //     // largeImage: '',
-  //   }));
-  //     console.log(e.target);
-  // };
-
-
-
-    toggleModal = (e) => {
-        this.setState({ isOpen: !this.state.isOpen });
-        console.log("cliked");
-      console.log(e.target);
-      // console.log(this.state.response.largeImageURL);
-     }
-
+      
     render() {
-        const { response, isOpen, largeImage } = this.state;
+        const { response, isOpen } = this.state;
         return (<>
-            
             {this.state.loading&& <Vortex
   visible={true}
   height="80"
@@ -85,30 +68,15 @@ handleGalleryItem = fullImageUrl => {
   wrapperStyle={{}}
   wrapperClass="vortex-wrapper"
   colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
-            />}
-            {!this.props.Request&& <div>Start your search</div>}
-            {
-                this.state.response && 
-                <ul class="gallery">
-                <ImageGalleryItem data={response} onClick={this.toggleModal} isOpen={isOpen} largeImage={ largeImage} /> 
+          />}
+          
+          {!this.props.Request && <div>Start your search</div>}
+          
+            {this.state.response && 
+            <ul class="gallery">
+                {response.map(item=> <ImageGalleryItem key={item.id} webformatURL={item.webformatURL} tags={item.tags} largeImageURL={item.largeImageURL} /> )}
                 {this.props.Request && <button type="button" onClick={this.loadMore}>load more</button>}
-                {/* {isOpen&&<Modal largeImageURL={response.largeImageURL} />} */}
-
-{/* {this.state.isOpen && (
-          <Modal onClose={this.toggleModal}>
-            <div className="Close-box">
-              <IconButton onClick={this.toggleModal} aria-label="Close modal">
-                <CloseIcon width="20px" height="20px" fill="#7e7b7b" />
-              </IconButton>
-            </div>
-
-            <img src={largeImage} alt="" className="Modal-image" />
-          </Modal>
-        )} */}
-
-
-                        {/* {this.state.isOpen&&<Modal data={response} onClick={ this.handleModal}/>} */}
-                        
+                {isOpen&&<Modal largeImageURL={this.props.largeImage} />}                    
              </ul> 
             }
             

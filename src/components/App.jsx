@@ -1,8 +1,7 @@
 import { Component } from "react";
 import Searchbar from "./Searchbar/Searchbar";
-// import ImageGalleryItem from "./ImageGalleryItem/ImageGalleryItem";
 import ImageGallery from "./ImageGallery/ImageGallery";
-import { Vortex } from "react-loader-spinner";
+
 
 export default class App extends Component  {
 
@@ -24,9 +23,8 @@ export default class App extends Component  {
      return (
     <div
       style={{
-        
-           display: 'flex',
-           flexDirection:'column',
+          display: 'flex',
+         flexDirection:'column',
         justifyContent: 'center',
         alignItems: 'center',
         fontSize: 40,
