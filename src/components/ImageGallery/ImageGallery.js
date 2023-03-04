@@ -2,6 +2,7 @@ import { Component } from "react";
 import ImageGalleryItem from "components/ImageGalleryItem/ImageGalleryItem";
 import { Vortex } from "react-loader-spinner";
 import Modal from "components/Modal/Modal";
+import { Gallerylist, LoadMoreButton } from "./ImageGallery.styled";
 
 export default class ImageGallery extends Component{
 
@@ -73,13 +74,13 @@ handleGalleryItem = fullImageUrl => {
           {!this.props.Request && <div>Start your search</div>}
           
             {this.state.response && 
-            <ul class="gallery">
+            <Gallerylist class="gallery">
                 {response.map(item=> <ImageGalleryItem key={item.id} webformatURL={item.webformatURL} tags={item.tags} largeImageURL={item.largeImageURL} /> )}
-                {this.props.Request && <button type="button" onClick={this.loadMore}>load more</button>}
+                
                 {isOpen&&<Modal largeImageURL={this.props.largeImage} />}                    
-             </ul> 
+             </Gallerylist> 
             }
-            
+            {this.state.response &&this.props.Request && <LoadMoreButton type="button" onClick={this.loadMore}>load more</LoadMoreButton>}
             </>
         )
     }
