@@ -1,7 +1,6 @@
 import { Component } from "react";
 import ImageGalleryItem from "components/ImageGalleryItem/ImageGalleryItem";
 import { Vortex } from "react-loader-spinner";
-import Modal from "components/Modal/Modal";
 import { Gallerylist, LoadMoreButton } from "./ImageGallery.styled";
 
 export default class ImageGallery extends Component{
@@ -11,7 +10,7 @@ export default class ImageGallery extends Component{
         page: 1,
         loading: false,
         errorMessage: '',
-        isOpen: false,
+        
         largeImage: ''      
         }
 
@@ -50,16 +49,11 @@ export default class ImageGallery extends Component{
         }))
     }
 
-handleGalleryItem = fullImageUrl => {
-    this.setState({
-      largeImage: fullImageUrl,
-      isOpen: true,
-    });
-  };
+
 
       
     render() {
-        const { response, isOpen } = this.state;
+        const { response } = this.state;
         return (<>
             {this.state.loading&& <Vortex
   visible={true}
@@ -77,8 +71,7 @@ handleGalleryItem = fullImageUrl => {
             <Gallerylist class="gallery">
                 {response.map(item=> <ImageGalleryItem key={item.id} webformatURL={item.webformatURL} tags={item.tags} largeImageURL={item.largeImageURL} /> )}
                 
-                {isOpen&&<Modal largeImageURL={this.props.largeImage} />}                    
-             </Gallerylist> 
+            </Gallerylist> 
             }
             {this.state.response &&this.props.Request && <LoadMoreButton type="button" onClick={this.loadMore}>load more</LoadMoreButton>}
             </>
