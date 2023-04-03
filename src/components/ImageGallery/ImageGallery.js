@@ -21,11 +21,10 @@ export default class ImageGallery extends Component{
             console.log("value 1=", prevProps.Request.request);
             console.log("value 2=", this.props.Request.request);
             this.setState({
-                loading: true
+                loading: true               
             });
-             this.loadImages();
-
-             }
+            this.loadImages();
+                        }
    
         
         if (prevState.page !== this.state.page) {
@@ -44,6 +43,7 @@ export default class ImageGallery extends Component{
     }  
     
     loadMore = () => {
+        
         this.setState((prevState) => ({
             page:prevState.page+1
         }))
