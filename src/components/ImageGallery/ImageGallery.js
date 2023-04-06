@@ -21,7 +21,9 @@ export default class ImageGallery extends Component{
             console.log("value 1=", prevProps.Request.request);
             console.log("value 2=", this.props.Request.request);
             this.setState({
-                loading: true               
+                loading: true,
+                page:1,
+                response: [],
             });
             this.loadImages();
                         }
