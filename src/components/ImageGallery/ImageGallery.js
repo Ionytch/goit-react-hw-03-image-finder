@@ -24,6 +24,7 @@ export default class ImageGallery extends Component{
                 loading: true,
                 page:1,
                 response: [],
+                totalImages: 0,
             });
             this.loadImages();
                         }
@@ -38,7 +39,7 @@ export default class ImageGallery extends Component{
     loadImages = () => {
                  fetch(`https://pixabay.com/api/?q=${this.props.Request.request}&page=${this.state.page}&key=32152184-2ad461e647b19751df8bc3af5&image_type=photo&orientation=horizontal&per_page=12`)
                 .then(res => res.json())
-                .then(({ hits }) => { this.setState((prevState) => ({ response: [...prevState.response, ...hits], errorMessage: '' })); } )
+                .then(( data ) => { this.setState((prevState) => ({ response: [...prevState.response, ...data.hits], totalImages:data.totalHits, errorMessage: '' })); } )
                 .catch((error) => ({ errorMessage: error.message }))
                 .finally(()=>this.setState({loading: false}));
             
@@ -56,6 +57,9 @@ export default class ImageGallery extends Component{
       
     render() {
         const { response } = this.state;
+        const { totalImages } = this.state;
+        const totalPages = Math.ceil(totalImages / 12);
+        
         return (<>
             {this.state.loading&& <Vortex
   visible={true}
@@ -75,7 +79,7 @@ export default class ImageGallery extends Component{
                 
             </Gallerylist> 
             }
-            {this.state.response &&this.props.Request && <LoadMoreButton type="button" onClick={this.loadMore}>load more</LoadMoreButton>}
+            {this.state.response &&this.props.Request && totalPages>1 && <LoadMoreButton type="button" onClick={this.loadMore}>load more</LoadMoreButton>}
             </>
         )
     }
