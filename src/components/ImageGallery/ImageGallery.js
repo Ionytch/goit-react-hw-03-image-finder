@@ -10,7 +10,7 @@ export default class ImageGallery extends Component{
         page: 1,
         loading: false,
         errorMessage: '',
-        
+        totalImages: 0,
         largeImage: ''      
         }
 
@@ -59,6 +59,8 @@ export default class ImageGallery extends Component{
         const { response } = this.state;
         const { totalImages } = this.state;
         const totalPages = Math.ceil(totalImages / 12);
+       
+        
         
         return (<>
             {this.state.loading&& <Vortex
@@ -79,11 +81,11 @@ export default class ImageGallery extends Component{
                 
             </Gallerylist> 
             }
-            {this.state.response &&this.props.Request && totalPages>1 && <LoadMoreButton type="button" onClick={this.loadMore}>load more</LoadMoreButton>}
+            { totalPages>1 && <LoadMoreButton type="button" onClick={this.loadMore}>load more</LoadMoreButton>}
             </>
         )
     }
 }
 
-
+// this.state.response &&this.props.Request &&
 
