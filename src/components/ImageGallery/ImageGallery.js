@@ -57,9 +57,7 @@ export default class ImageGallery extends Component{
       
     render() {
         const { response } = this.state;
-        const { totalImages } = this.state;
-        const totalPages = Math.ceil(totalImages / 12);
-       
+        const { totalImages } = this.state;           
         
         
         return (<>
@@ -81,7 +79,7 @@ export default class ImageGallery extends Component{
                 
             </Gallerylist> 
             }
-            { totalPages>1 && <LoadMoreButton type="button" onClick={this.loadMore}>load more</LoadMoreButton>}
+            { response.length >= 1 && response.length < totalImages && <LoadMoreButton type="button" onClick={this.loadMore}>load more</LoadMoreButton>}
             </>
         )
     }
